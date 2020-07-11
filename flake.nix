@@ -22,14 +22,15 @@
         };
 
       pkgs = pkgImport nixpkgs;
+
+      importModules = path: pathsToImportedAttrs (import path);
     in {
       packages."${system}" = import ./pkgs { inherit pkgs; };
 
       overlay = import ./overlay.nix;
 
-      nixosModules = let
-        moduleList = import ./modules/list.nix;
-        modulesAttrs = pathsToImportedAttrs moduleList;
-      in modulesAttrs;
+      nixosModules = importModules ./modules/list.nix // {
+        home-manager = importModules ./hm-modules/list.nix;
+      };
     };
 }
