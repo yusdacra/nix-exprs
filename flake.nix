@@ -29,8 +29,7 @@
 
       overlay = import ./overlay.nix;
 
-      nixosModules = importModules ./modules/list.nix // {
-        home-manager = importModules ./hm-modules/list.nix;
-      };
+      nixosModules = importModules ./modules/list.nix;
+      hmModules = importModules ./hm-modules/list.nix;
     };
 }
