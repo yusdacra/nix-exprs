@@ -13,7 +13,7 @@ pkgs.stdenv.mkDerivation rec {
 
   uuid = "unite@hardpixel.eu";
 
-  buildInputs = [ pkgs.xorg.xprop ];
+  buildInputs = with pkgs; [ xorg.xprop glib ];
 
   installPhase = ''
     runHook preInstall
