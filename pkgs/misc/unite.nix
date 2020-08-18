@@ -8,7 +8,7 @@ pkgs.stdenv.mkDerivation rec {
     owner = "hardpixel";
     repo = "unite-shell";
     rev = "d523b3db2070a5312fc611e3c3c44fe1bd9cac3b";
-    sha256 = "sha256-JZso8OOJIWTt4gsexvUlYJcl0zi7fc7GV/XcCtgrQ70=";
+    sha256 = "sha256-YurKzDecdXAzehO0U8IT7RDNx8ncs69/6rzYaR6pj4E=";
   };
 
   uuid = "unite@hardpixel.eu";
@@ -18,7 +18,7 @@ pkgs.stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/share/gnome-shell/extensions
-    cp -r . $out/share/gnome-shell/extensions/${uuid}
+    cp -r ${uuid} $out/share/gnome-shell/extensions
     runHook postInstall
   '';
 
@@ -26,6 +26,7 @@ pkgs.stdenv.mkDerivation rec {
     description =
       "Unite is a GNOME Shell extension which makes a few layout tweaks to the top panel and removes window decorations to make it look like Ubuntu Unity Shell.";
     license = licenses.gpl3;
+    platforms = pkgs.gnome3.gnome-shell.meta.platforms;
     homepage = "https://github.com/hardpixel/unite-shell";
   };
 }
