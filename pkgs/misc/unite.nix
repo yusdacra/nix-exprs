@@ -2,11 +2,12 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "unite-shell";
-  version = "41";
+  version = "d523b3d";
 
-  src = pkgs.fetchzip {
-    url =
-      "https://github.com/hardpixel/unite-shell/releases/download/v${version}/unite-shell-v${version}.zip";
+  src = pkgs.fetchFromGitHub {
+    owner = "hardpixel";
+    repo = "unite-shell";
+    rev = "d523b3db2070a5312fc611e3c3c44fe1bd9cac3b";
     sha256 = "sha256-JZso8OOJIWTt4gsexvUlYJcl0zi7fc7GV/XcCtgrQ70=";
   };
 
@@ -15,8 +16,10 @@ pkgs.stdenv.mkDerivation rec {
   buildInputs = [ pkgs.xorg.xprop ];
 
   installPhase = ''
-    mkdir -p $out/share/gnome-shell/extensions/${uuid}
+    runHook preInstall
+    mkdir -p $out/share/gnome-shell/extensions
     cp -r . $out/share/gnome-shell/extensions/${uuid}
+    runHook postInstall
   '';
 
   meta = with pkgs.stdenv.lib; {
