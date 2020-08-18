@@ -19,6 +19,7 @@ in {
         wantedBy = [ "network.target" ];
         before = [ "iwd.service" ];
         script = ''
+          mkdir -p /var/lib/iwd
           echo "
           [Security]
           Passphrase=${attrs.psk}
