@@ -1,6 +1,8 @@
 {
   description = "Packages & modules @yusdacra maintains.";
 
+  inputs.nixpkgs.url = "nixpkgs/master";
+
   outputs = { self, nixpkgs }:
     let
       inherit (builtins) listToAttrs baseNameOf attrNames attrValues readDir;
