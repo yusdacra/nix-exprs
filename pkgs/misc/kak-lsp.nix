@@ -6,11 +6,11 @@ pkgs.rustPlatform.buildRustPackage rec {
   src = pkgs.fetchFromGitHub {
     owner = "ul";
     repo = pname;
-    rev = "a69bc9599c57cef1ea7fad97e3483f80708e4ba4";
-    sha256 = "sha256-aGSfNbIvdGrkOI3Ah89Yd4yMwlglEhBQYyC2+pv+7Kg=";
+    rev = "4aaa97260847f40da4da4407f132fb3dce41e247";
+    sha256 = "sha256-n9zqtkNckI4FNWN86mPyuNjjHMBDTSJ9Lv619DPLXkU=";
   };
 
-  cargoSha256 = "sha256-6/dsMuf/Dj3/JVPNefAygMCQyxZL3noLuSz52Ja/OGw=";
+  cargoSha256 = "sha256-kksF1/FN7ckztXPMdQq9XHmgvjJaIG/ZbMic/tOC1rQ=";
 
   meta = with pkgs.stdenv.lib; {
     description = "Kakoune Language Server Protocol Client";

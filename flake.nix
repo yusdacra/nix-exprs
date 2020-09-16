@@ -1,7 +1,7 @@
 {
   description = "Packages & modules @yusdacra maintains.";
 
-  inputs.nixpkgs.url = "nixpkgs/master";
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable-small";
 
   outputs = { self, nixpkgs }:
     let
