@@ -1,7 +1,7 @@
 {
   description = "Packages & modules @yusdacra maintains.";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable-small";
+  inputs.nixpkgs.url = "nixpkgs/master";
 
   outputs = { self, nixpkgs }:
     let
@@ -26,7 +26,8 @@
       pkgs = pkgImport nixpkgs;
 
       importModules = path: pathsToImportedAttrs (import path);
-    in {
+    in
+    {
       packages."${system}" = import ./pkgs { inherit pkgs; };
 
       overlay = import ./overlay.nix;

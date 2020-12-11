@@ -2,7 +2,8 @@
 let
   inherit (lib) mkIf mapAttrs' nameValuePair concatStrings splitString;
   cfg = config.networking.wireless.iwd;
-in {
+in
+{
   config = mkIf cfg.enable {
     environment.etc."iwd/main.conf".text = ''
       [General]
@@ -13,23 +14,26 @@ in {
       NameResolvingService=resolvconf
     '';
 
-    systemd.services = mapAttrs' (name: attrs:
-      nameValuePair
-      "add-wifi-network-${concatStrings (splitString " " name)}-to-iwd" {
-        wantedBy = [ "network.target" ];
-        before = [ "iwd.service" ];
-        script = ''
-          mkdir -p /var/lib/iwd
-          echo "
-          [Security]
-          Passphrase=${attrs.psk}
-          " > "/var/lib/iwd/${name}.psk"
-        '';
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          User = "root";
-        };
-      }) config.networking.wireless.networks;
+    systemd.services = mapAttrs'
+      (name: attrs:
+        nameValuePair
+          "add-wifi-network-${concatStrings (splitString " " name)}-to-iwd"
+          {
+            wantedBy = [ "network.target" ];
+            before = [ "iwd.service" ];
+            script = ''
+              mkdir -p /var/lib/iwd
+              echo "
+              [Security]
+              Passphrase=${attrs.psk}
+              " > "/var/lib/iwd/${name}.psk"
+            '';
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              User = "root";
+            };
+          })
+      config.networking.wireless.networks;
   };
 }

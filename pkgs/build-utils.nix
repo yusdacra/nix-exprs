@@ -3,9 +3,15 @@ let
   inherit (pkgs) appimageTools fetchurl;
   inherit (pkgs.lib) fakeSha256;
   inherit (pkgs.stdenv) mkDerivation;
-in {
-  appimagePackage = { binName, version, url, sha256 ? fakeSha256
-    , meta ? { platforms = [ "x86_64-linux" ]; } }:
+in
+{
+  appimagePackage =
+    { binName
+    , version
+    , url
+    , sha256 ? fakeSha256
+    , meta ? { platforms = [ "x86_64-linux" ]; }
+    }:
     let
       pname = "${binName}-appimage";
       name = "${pname}-${version}";
@@ -16,7 +22,8 @@ in {
       };
 
       appimageContents = appimageTools.extractType2 { inherit name src; };
-    in appimageTools.wrapType2 {
+    in
+    appimageTools.wrapType2 {
       inherit name src meta;
 
       extraInstallCommands = ''
